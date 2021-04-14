@@ -1,13 +1,14 @@
 #!/bin/bash
 set -e
-# we usually run Kubernetes and this won't be necessary,
-# but for this example we will use local LAS service.
-source run_las.sh
+source sgx_device.sh
 
 echo "Start sconification..."
 # we ues && to ensure that all commands finish before run next one
-./sconify.sh && \
-start_las && \
+determine_sgx_device &&\
 echo "Run sconified image..." && \
-docker run -it --rm  --network=host --device=/dev/isgx -eSCONE_VERSION=1 hello-world-c-scone && \
-stop_las
+docker run -it --rm --network=host $MOUNT_SGXDEVICE \
+-eSCONE_VERSION=1 \
+-eSCONE_MODE=hw \
+-eSCONE_LOG="7" \
+-ePATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" \
+hello-world-c-scone /app/hello-world
