@@ -2,7 +2,7 @@
 
 docker run -it --rm \
             -v /var/run/docker.sock:/var/run/docker.sock \
-            registry.scontain.com:5050/sconecuratedimages/iexec-sconify-image:5.3.2 sconify_iexec \
+            registry.scontain.com:5050/sconecuratedimages/iexec-sconify-image:5.3.3 sconify_iexec \
             --name=c_session_name \
             --from=registry.scontain.com:5050/sconecuratedimages/iexecsgx:hello-world-c \
             --to=hello-world-c-scone \
